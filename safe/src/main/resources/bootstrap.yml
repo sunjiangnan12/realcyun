@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: safe
+  cloud:
+    nacos:
+      config:
+        server-addr: 106.14.248.80:8848
+        group: safe
+        file-extension: yaml
+      discovery:
+        server-addr: 106.14.248.80:8848
+  profiles:
+    active: dev

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: partner
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 106.14.248.80:8848
+        group: partner
+        file-extension: yaml
+      discovery:
+        server-addr: 106.14.248.80:8848
+        # 熔断限流
+    sentinel:
+      transport:
+        dashboard: 106.14.248.80:8858
+#开启 Feign 对 Sentinel 的支持
+feign:
+  sentinel:
+    enabled: true
+
