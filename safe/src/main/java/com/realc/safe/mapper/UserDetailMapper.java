@@ -1,7 +1,7 @@
 package com.realc.safe.mapper;
 
 import com.realc.safe.model.UserDetail;
-
+import org.apache.ibatis.annotations.Param;
 
 
 public interface UserDetailMapper {
@@ -54,8 +54,11 @@ public interface UserDetailMapper {
     int updateByPrimaryKey(UserDetail record);
 
     /**
-     * 登录
+     * 用户登录
+     * @param userName
+     * @param password
+     * @return
      */
-    UserDetail login(String userName, String password);
+    UserDetail login(@Param("user_name") String userName, @Param("password") String password);
 
 }

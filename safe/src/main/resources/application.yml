@@ -4,9 +4,9 @@ server:
     uri-encoding: UTF-8
 spring:
   datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://rm-uf6m83o7hz06aw5me0o.mysql.rds.aliyuncs.com:3306/realc_safe?characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: realc
+    password: Realc123654@
+    url: jdbc:mysql://rm-uf6m83o7hz06aw5me0o.mysql.rds.aliyuncs.com:3306/realc_safe?characterEncoding=UTF-8&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 
@@ -34,3 +34,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     call-setters-on-nulls: true
+# 打印sql
+logging:
+  level:
+    com.realc.safe.mapper : debug

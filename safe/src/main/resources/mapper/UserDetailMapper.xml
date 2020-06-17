@@ -463,6 +463,6 @@
     select
     <include refid="Base_Column_List" />
     from realc_user_detail
-    where (user_mobile = #{0} or user_email = #{0} ) and im_password =#{1}
+    where (user_mobile = #{user_name} or user_email = #{user_name} ) and im_password =#{password}
   </select>
 </mapper>

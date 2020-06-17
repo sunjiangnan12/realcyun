@@ -20,6 +20,12 @@
     -->
     log_id, log_account, log_ip, log_imei, create_time, is_success
   </sql>
+  <select id="selectByCondition" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from realc_login_log
+    where 1 = 1 and #{condition,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
