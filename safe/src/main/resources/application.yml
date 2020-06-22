@@ -27,6 +27,15 @@ spring:
       # 默认创建表类型是MyISAM，是非事务安全的，所以无法实现事物回滚
       # 指定如下方言: 创建的表类型是Innodb，才可以进行对事物的回滚。
       database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  redis:
+    host: r-uf6rjlwgkn4ab7bvgtpd.redis.rds.aliyuncs.com
+    port: 6379
+    max-wait: 30000
+    max-active: 8
+    max-idle: 20
+    min-idle: 0
+    timeout: 3000
+    password: Realc123654@
 
 mybatis:
   ### xml存放路径
@@ -39,11 +48,3 @@ logging:
   level:
     com.realc.safe.mapper : debug
 
-redis:
-  host: r-uf6rjlwgkn4ab7bvgtpd.redis.rds.aliyuncs.com
-  port: 6379
-  max-wait: 30000
-  max-active: 100
-  max-idle: 20
-  min-idle: 0
-  timeout: 3000

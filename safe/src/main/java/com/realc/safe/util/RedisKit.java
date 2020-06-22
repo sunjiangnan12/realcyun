@@ -3,6 +3,7 @@ package com.realc.safe.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/6/13 18:01
  * <p>Company: realc·china</p>
  */
+@Component
 public class RedisKit {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;

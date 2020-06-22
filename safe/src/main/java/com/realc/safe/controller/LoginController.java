@@ -5,6 +5,7 @@ import com.alibaba.nacos.common.utils.Md5Utils;
 import com.realc.safe.mapper.LoginLogMapper;
 import com.realc.safe.mapper.UserDetailMapper;
 import com.realc.safe.model.UserDetail;
+import com.realc.safe.util.RedisKit;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -35,6 +37,8 @@ public class LoginController {
 
     @Autowired
     private UserDetailMapper userDetailMapper;
+    @Resource
+    RedisKit redisKit;
 
     @PostMapping(value = "/login", produces = "application/json;charset=UTF-8")
     public Map<String,Object> login(@RequestBody JSONObject json, HttpServletRequest request) throws IOException {
@@ -54,7 +58,7 @@ public class LoginController {
             log.info("登录成功");
             result.put("code","0");
             result.put("msg","login success");
-            log.info("记录登录日志");
+            redisKit.set("session_"+request.getSession().getAttribute("sessionId"),userDetail,60*60*2);
             log.info("记录redis，分配ticket");
             log.info("返回returnUrl");
         }else{
