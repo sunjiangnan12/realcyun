@@ -107,6 +107,24 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.22</version>
         </dependency>
+
+        <!--简单快速的访问静态资源(图片、html等)-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!--开发阶段使用：springboot热启动(热部署)：项目有更改，自动编译：需配置idea   true生效-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!--springboot中的redis依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

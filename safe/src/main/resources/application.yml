@@ -38,3 +38,12 @@ mybatis:
 logging:
   level:
     com.realc.safe.mapper : debug
+
+redis:
+  host: r-uf6rjlwgkn4ab7bvgtpd.redis.rds.aliyuncs.com
+  port: 6379
+  max-wait: 30000
+  max-active: 100
+  max-idle: 20
+  min-idle: 0
+  timeout: 3000
