@@ -53,7 +53,7 @@ public class FormController {
         return formService.formDispatcher(requestEntity);
     }
 
-    // 工作进度
+    // 工作进度汇报
     @RequestMapping(value = "submitFormSchedule", method = RequestMethod.POST)
     public ResponseResult submitFormSchedule(@RequestBody RequestEntity requestEntity) {
         return formService.submitFormSchedule(requestEntity);
