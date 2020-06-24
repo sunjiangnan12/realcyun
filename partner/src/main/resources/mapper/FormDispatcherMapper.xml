@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.realc.partner.business.master.mapper.FormMapper">
+    <resultMap id="formDispatcher" type="com.realc.partner.business.master.model.FromDispatcher">
+        <id column="fd_id" jdbcType="INTEGER" property="fdId"/>
+        <result column="form_id" jdbcType="INTEGER" property="formId"/>
+        <result column="to_user_name" jdbcType="VARCHAR" property="toUserName"/>
+        <result column="to_user_id" jdbcType="VARCHAR" property="toUserId"/>
+        <result column="from_user_name" jdbcType="VARCHAR" property="fromUserName"/>
+        <result column="from_user_id" jdbcType="VARCHAR" property="fromUserId"/>
+        <result column="is_accept" jdbcType="VARCHAR" property="isAccept"/>
+        <result column="is_valid" jdbcType="VARCHAR" property="isValid"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+    </resultMap>
+
+    <insert id="createFormDispatcher"
+            parameterType="com.realc.partner.business.master.model.RequestEntity">
+        insert form_dispatcher (form_id, to_user_id, to_user_name, from_user_id, from_user_name, create_time, update_time)
+        values (#{formId}, #{toUserId}, #{toUserName}, #{fromUserId}, #{fromUserName}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateFormDispatcher" >
+        update form_dispatcher set is_valid = '0', update_time = #{date} where form_id in (
+        <foreach collection="ids" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+        )
+        and is_valid = '1'
+
+    </update>
+</mapper>

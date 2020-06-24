@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.realc.partner.business.master.mapper.FormMapper">
+    <resultMap id="form" type="com.realc.partner.business.master.model.Form">
+        <id column="form_id" jdbcType="INTEGER" property="formId"/>
+        <result column="form_user_name" jdbcType="VARCHAR" property="formUserName"/>
+        <result column="form_user_id" jdbcType="VARCHAR" property="formUserId"/>
+        <result column="form_user_tel" jdbcType="VARCHAR" property="formUserTel"/>
+        <result column="shop_id" jdbcType="VARCHAR" property="shopId"/>
+        <result column="shop_name" jdbcType="VARCHAR" property="shopName"/>
+        <result column="shop_tel" jdbcType="VARCHAR" property="shopTel"/>
+        <result column="form_type" jdbcType="CHAR" property="formType"/>
+        <result column="client_id" jdbcType="VARCHAR" property="clientId"/>
+        <result column="client_name" jdbcType="VARCHAR" property="clientName"/>
+        <result column="client_tel" jdbcType="VARCHAR" property="clientTel"/>
+        <result column="client_wx" jdbcType="VARCHAR" property="clientWx"/>
+        <result column="client_addr" jdbcType="VARCHAR" property="clientAddr"/>
+        <result column="client_is_contact" jdbcType="VARCHAR" property="clientIsContact"/>
+        <result column="client_describe" jdbcType="VARCHAR" property="clientDescribe"/>
+        <result column="linkup" jdbcType="VARCHAR" property="linkUp"/>
+        <result column="gathering_detail" jdbcType="DECIMAL" property="gatheringDetail"/>
+        <result column="payment" jdbcType="DECIMAL" property="payment"/>
+        <result column="service_charge_count" jdbcType="DECIMAL" property="serviceChargeCount"/>
+        <result column="service_charge" jdbcType="DECIMAL" property="serviceCharge"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+        <result column="is_valid" jdbcType="VARCHAR" property="isValid"/>
+        <result column="form_status" jdbcType="VARCHAR" property="formStatus"/>
+        <result column="is_fake" jdbcType="VARCHAR" property="isFake"/>
+        <collection property="evaluates" ofType="com.realc.partner.business.master.model.FormEvaluate">
+            <id column="fe_id" jdbcType="INTEGER" property="feId"/>
+            <result column="form_id" jdbcType="INTEGER" property="formId"/>
+            <result column="eva_user_name" jdbcType="VARCHAR" property="evaUserName"/>
+            <result column="eva_user_id" jdbcType="VARCHAR" property="evaUserId"/>
+            <result column="evaluate" jdbcType="VARCHAR" property="evaluate"/>
+            <result column="note" jdbcType="VARCHAR" property="note"/>
+            <result column="is_valid" jdbcType="VARCHAR" property="isValid"/>
+            <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+            <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+        </collection>
+        <collection property="schedules" ofType="com.realc.partner.business.master.model.FormSchedule">
+            <id column="fs_id" jdbcType="INTEGER" property="fsId"/>
+            <result column="form_id" jdbcType="INTEGER" property="formId"/>
+            <result column="process_id" jdbcType="VARCHAR" property="processId"/>
+            <result column="process_name" jdbcType="VARCHAR" property="processName"/>
+            <result column="process_schedule" jdbcType="VARCHAR" property="processSchedule"/>
+            <result column="note" jdbcType="VARCHAR" property="note"/>
+            <result column="is_valid" jdbcType="VARCHAR" property="isValid"/>
+            <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+            <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="getCount" resultType="Long">
+        select count(0) from form;
+    </select>
+
+    <insert id="createForm" parameterType="com.realc.partner.business.master.model.RequestEntity">
+        insert into form (form_user_name, form_user_id, form_user_tel,
+				shop_id,shop_name,shop_tel,form_type,
+				client_id,client_name, client_tel, client_wx, client_addr,
+				client_is_contact,client_describe,linkup
+			    ,gathering_detail,payment,service_charge_count,service_charge
+			    ,create_time,update_time)
+        values 	(#{formUserName},#{formUserId},#{formUserTel},#{shopId},#{shopName},#{shopTel},#{formType},
+                #{clientId},#{clientName},#{clientTel},#{clientWx},#{clientAddr},#{clientIsContact},
+                #{clientDescribe},#{linkUp}
+                ,#{gatheringDetail},#{payment},#{serviceChargeCount},#{serviceCharge}
+                ,#{createTime},#{updateTime})
+    </insert>
+
+    <update id="updateForm" parameterType="com.realc.partner.business.master.model.RequestEntity">
+        update form
+        <set>
+            <trim prefixOverrides=",">
+                <if test="formStatus != null and formStatus != ''">
+                    form_status = #{formStatus}
+                </if>
+                <if test="isFake != null and isFake != ''">
+                    , is_fake = #{isFake}
+                </if>
+                ,update_time = #{updateTime}
+            </trim>
+        </set>
+        where form_id = #{formId}
+    </update>
+
+    <select id="getFormCountByCondition" parameterType="com.realc.partner.business.master.model.RequestEntity" resultType="Long">
+        select count(0) from <include refid="getFormListByConditionSQL" />
+    </select>
+    <select id="getFormListByCondition" parameterType="com.realc.partner.business.master.model.RequestEntity"
+            resultMap="form">
+        select * from <include refid="getFormListByConditionSQL" /> limit #{pageStart}, #{pageSize}
+    </select>
+
+    <sql id="getFormListByConditionSQL">
+        form where form_status = #{formStatus} and is_fake = '0' and is_valid ='1'
+    </sql>
+
+    <select id="getFormDetailByFormId" parameterType="com.realc.partner.business.master.model.RequestEntity" resultMap="form">
+        select * from (
+        select * from form
+        <where>
+            <if test="formId != null and formId != ''">
+                form_id = #{formId}
+            </if>
+        </where>
+        ) f
+        left join form_evaluate fe on f.form_id = fe.form_id and fe.is_valid = '1'
+        left join form_schedule fs on f.form_id = fs.form_id and fs.is_valid = '1'
+    </select>
+
+    <select id="getOverdueDispatcherFormIds" resultType="INTEGER">
+        select form_id from form
+        where form_status = '4' and is_valid = '1' and is_fake = '0' and
+        TIMESTAMPDIFF(MINUTE, DATE_FORMAT(update_time, '%Y-%m-%d %H:%i:%s'), DATE_FORMAT(#{date}, '%Y-%m-%d %H:%i:%s')) &gt; 5
+    </select>
+
+    <update id="updateFormByFormIds" >
+        update form set form_status = '3', update_time = #{date} where form_id in (
+        <foreach collection="ids" index="index" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </update>
+</mapper>

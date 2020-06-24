@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.realc.partner.business.master.mapper.FormMapper">
+    <resultMap id="formSchedule" type="com.realc.partner.business.master.model.FormSchedule">
+        <id column="fs_id" jdbcType="INTEGER" property="fsId"/>
+        <result column="form_id" jdbcType="INTEGER" property="formId"/>
+        <result column="process_id" jdbcType="VARCHAR" property="processId"/>
+        <result column="process_name" jdbcType="VARCHAR" property="processName"/>
+        <result column="process_schedule" jdbcType="VARCHAR" property="processSchedule"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="is_valid" jdbcType="VARCHAR" property="isValid"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+    </resultMap>
+
+    <insert id="createFormSchedule"
+            parameterType="com.realc.partner.business.master.model.RequestEntity">
+        insert form_schedule (form_id, process_id, process_name, process_schedule, note, create_time, update_time)
+        values(#{formId},#{processId},#{processName},#{processSchedule},#{note},#{createTime},#{updateTime})
+    </insert>
+</mapper>

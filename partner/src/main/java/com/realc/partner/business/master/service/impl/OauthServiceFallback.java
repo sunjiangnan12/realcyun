@@ -1,6 +1,6 @@
-package com.realc.partner.service.impl;
+package com.realc.partner.business.master.service.impl;
 
-import com.realc.partner.service.OauthService;
+import com.realc.partner.business.master.service.OauthService;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;

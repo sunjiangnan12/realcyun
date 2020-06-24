@@ -1,6 +1,6 @@
-package com.realc.partner.service;
+package com.realc.partner.business.master.service;
 
-import com.realc.partner.service.impl.OauthServiceFallback;
+import com.realc.partner.business.master.service.impl.OauthServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

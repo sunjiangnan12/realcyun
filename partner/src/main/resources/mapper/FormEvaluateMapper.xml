@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.realc.partner.business.master.mapper.FormMapper">
+    <resultMap id="formEvaluate" type="com.realc.partner.business.master.model.FormEvaluate">
+        <id column="fe_id" jdbcType="INTEGER" property="feId"/>
+        <result column="form_id" jdbcType="INTEGER" property="formId"/>
+        <result column="eva_user_name" jdbcType="VARCHAR" property="evaUserName"/>
+        <result column="eva_user_id" jdbcType="VARCHAR" property="evaUserId"/>
+        <result column="evaluate" jdbcType="VARCHAR" property="evaluate"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="is_valid" jdbcType="VARCHAR" property="isValid"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+    </resultMap>
+
+    <insert id="submitFormEvaluate" parameterType="com.realc.partner.business.master.model.RequestEntity">
+        insert form_evaluate(form_id, eva_user_name, eva_user_id, evaluate, note, create_time, update_time)
+        values (#{formId}, #{evaUserName}, #{evaUserId}, #{evaluate}, #{note}, #{createTime}, #{updateTime})
+    </insert>
+</mapper>
