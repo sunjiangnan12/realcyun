@@ -59,7 +59,7 @@ public class FormController {
         return formService.submitFormSchedule(requestEntity);
     }
 
-    // 工作评价
+    // 工作评价汇报
     @RequestMapping(value = "submitFormEvaluate", method = RequestMethod.POST)
     public ResponseResult submitFormEvaluate(@RequestBody RequestEntity requestEntity) {
         return formService.submitFormEvaluate(requestEntity);
